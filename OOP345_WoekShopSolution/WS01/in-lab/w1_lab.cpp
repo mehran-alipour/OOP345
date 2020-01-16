@@ -11,7 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include "event.h"
-
+unsigned int g_sysClock = 0;
 /* input file format: a coma separated set of fields; some fields have a single parameter
 T175,SComputer Starting,P,
 
