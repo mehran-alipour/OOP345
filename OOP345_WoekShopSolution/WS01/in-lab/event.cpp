@@ -36,7 +36,7 @@ namespace sdds{
     void Event::convert() {
         m_hh = m_eventTime / 3600u;
         m_mm = (m_eventTime - (m_hh * 3600u)) / 60u;
-        m_ss = (m_eventTime - (m_hh * 3600u) + (m_mm * 60u)) > 0;
+        m_ss = m_eventTime - m_hh * 3600u - m_mm * 60u;
     }
     bool Event::isEmpty() const {
         return m_descEvent[0] == '\0';
