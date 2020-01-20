@@ -16,20 +16,35 @@ extern unsigned int g_sysClock;
 namespace sdds{
     class Event {
         //representing the description of the event
-        char m_descEvent[128];
+        char* m_descEvent;
         //event start as the number of seconds since midnight range (0 - 86400)
         unsigned int m_eventTime;
+        // Hours
         unsigned int m_hh;
+        // min
         unsigned int m_mm;
+        // second
         unsigned int m_ss;
-    public:
-        Event();
-        void setEmpty();
-        void setDescription(const char* desc);
+        // set the event desc and time
+        void setEvent(const char* desc, unsigned int time);
+        // convert the event time provided in second to Hour:min:sec
         void convert();
+        // if the discription 
         bool isEmpty()const;
+        // set the object to safeEmpty state all times are set to 99999
+        void setEmpty();
+    public:
+        // connstructor
+        Event();
+        // copy constructor
+        Event(const Event&);
+        // set the object discription and event ty
+        void setDescription(const char* desc);
+        // chech if the object is empty
         void display() const;
+        Event& operator=(const Event& copyEvent);
         ~Event();
+
     };
 }
 #endif // End of Safegard
