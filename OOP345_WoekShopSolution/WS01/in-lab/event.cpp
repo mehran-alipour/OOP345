@@ -14,9 +14,11 @@
 using namespace std;
 namespace sdds{
     Event::Event() {
+        cout << "******" << endl;
         setEmpty();
     }
     void Event::setEmpty() {
+        cout << "empttttttty" << endl;
         m_descEvent[0] = '\0';
         m_eventTime = 99999u;
         m_hh = 99999u;
@@ -25,9 +27,11 @@ namespace sdds{
     }
     void Event::setDescription(const char* desc) {
         if (desc == NULL || desc[0] == 0) {
+            cout << "empty Des *****" << endl;
             setEmpty();
         }
         else {
+            cout << "copy the description >>>>" << endl;
             strncpy(m_descEvent, desc, 128);
             m_eventTime = g_sysClock;
             convert();
