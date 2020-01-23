@@ -6,3 +6,47 @@
 //
 // I confirm that the content of this file is created by me,
 //   with the exception of the parts provided to me by my professor.
+#include <iostream>
+#include "TimedEvents.h"
+
+using namespace std;
+namespace sdds {
+    int TimedEvents::t_numRec = 0;
+    TimedEvents::TimedEvents() {
+
+    }
+    void TimedEvents::setEmpty() {
+
+    }
+    void TimedEvents::startClock() {
+        t_startTime = chrono::steady_clock::now();
+    }
+    void TimedEvents::stopClock() {
+        t_endTime = chrono::steady_clock::now();
+    }
+    void TimedEvents::recordEvent(const char* eventName) {
+        auto timeUnit = chrono::duration_cast<chrono::nanoseconds>
+             (t_endTime - t_startTime);
+        if (t_numRec < MAX_REC) {
+            this->t_event[t_numRec].t_s_eveName = eventName;
+            this->t_event[t_numRec].t_s_uniTime = "nanosecond";
+            this->t_event[t_numRec].t_s_duraiton = timeUnit;
+        }
+    }
+    ostream& operator<<(ostream os, const TimedEvents& events){
+        int i;
+        os << "Execution Times:" << endl
+           << "--------------------------" << endl;
+        for (i = 0; i < events.t_numRec; i++) {
+            os << setw(20) << left
+                << events.t_event[i].t_s_eveName << ' ' << setw(12) << right
+                << events.t_event[i].t_s_duraiton.count() << ' '
+                << events.t_event[i].t_s_uniTime << endl;
+        }
+        os << "--------------------------" << endl;
+        return os;
+    }
+    TimedEvents::~TimedEvents() {
+
+    }
+}
