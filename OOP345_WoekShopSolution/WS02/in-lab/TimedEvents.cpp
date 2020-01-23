@@ -11,12 +11,8 @@
 
 using namespace std;
 namespace sdds {
-    int TimedEvents::t_numRec = 0;
     TimedEvents::TimedEvents() {
-
-    }
-    void TimedEvents::setEmpty() {
-
+        t_numRec = 0;
     }
     void TimedEvents::startClock() {
         t_startTime = chrono::steady_clock::now();
@@ -31,9 +27,10 @@ namespace sdds {
             this->t_event[t_numRec].t_s_eveName = eventName;
             this->t_event[t_numRec].t_s_uniTime = "nanosecond";
             this->t_event[t_numRec].t_s_duraiton = timeUnit;
+            t_numRec++;
         }
     }
-    ostream& operator<<(ostream os, const TimedEvents& events){
+    ostream& operator<<(ostream& os, const TimedEvents& events){
         int i;
         os << "Execution Times:" << endl
            << "--------------------------" << endl;

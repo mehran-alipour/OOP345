@@ -9,13 +9,19 @@
 
 #ifndef SDDS_RECORDSET_H__
 #define SDDS_RECORDSET_H__
-#include <iostream>
+#include <string>
 namespace sdds {
     class RecordSet {
-        static int r_numRecSet;
-        std::string* t_arr;
+        static unsigned int r_numRecSet;
+        std::string* r_arr;
+    public:
         RecordSet();
-        RecordSet(const std::string*)
+        RecordSet(const RecordSet& copyCon);
+        RecordSet(const char* fileName);
+        size_t size()const;
+        std::string getRecord(size_t);
+        RecordSet& operator=(const RecordSet& copyOp);
+        virtual ~RecordSet();
     };
 }
 #endif // End of Safegard
