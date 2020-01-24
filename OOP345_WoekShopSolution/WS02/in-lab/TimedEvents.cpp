@@ -31,8 +31,9 @@ namespace sdds {
         }
     }
     ostream& operator<<(ostream& os, const TimedEvents& events){
-        int i;
-        os << "Execution Times:" << endl
+        unsigned int i;
+        os  << "--------------------------" << endl
+           << "Execution Times:" << endl
            << "--------------------------" << endl;
         for (i = 0; i < events.t_numRec; i++) {
             os << setw(20) << left

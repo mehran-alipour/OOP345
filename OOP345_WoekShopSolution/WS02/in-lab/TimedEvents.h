@@ -19,13 +19,13 @@ namespace sdds {
     const unsigned int MAX_REC = 7;
     class TimedEvents {
         // Stors number of records currently stored
-        int t_numRec {0};
+        unsigned int t_numRec {0};
         std::chrono::steady_clock::time_point t_startTime;
         std::chrono::steady_clock::time_point t_endTime;
         struct {
             std::string t_s_eveName;
             std::string t_s_uniTime;
-            std::chrono::steady_clock::duration t_s_duraiton;
+            std::chrono::steady_clock::duration t_s_duraiton{0};
         }t_event[MAX_REC];
     public:
         TimedEvents();

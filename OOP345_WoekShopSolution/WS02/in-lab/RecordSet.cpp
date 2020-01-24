@@ -12,12 +12,17 @@
 #include "RecordSet.h"
 using namespace std;
 namespace sdds {
-        unsigned int RecordSet::r_numRecSet = 0;
+    unsigned int RecordSet::r_numRecSet = 0;
     RecordSet::RecordSet() {
         r_arr = nullptr;
     }
     RecordSet::RecordSet(const RecordSet& copyCon):r_arr(nullptr) {
         *this = copyCon;
+    }
+    RecordSet::RecordSet(RecordSet&& moveCon) {
+        *this = moveCon;
+        delete[] moveCon.r_arr;
+        moveCon.r_numRecSet = 0;
     }
     RecordSet::RecordSet(const char* fileName) {
         string buffer = {};
@@ -25,24 +30,32 @@ namespace sdds {
         file.open(fileName);
         if (file.is_open())
         {
-            while (std::getline(file, buffer))
+            while (getline(file, buffer, ' ' ))
                 ++r_numRecSet;
         }
 
         // allocate memory
-        r_arr = new std::string[r_numRecSet];
+        r_arr = new string[r_numRecSet];
+        file.close();
+        file.open(fileName);
 
         unsigned int i = 0;
-        std::string line = {};
+        string line = {};
 
-        while (std::getline(file, line))
-            r_arr[i] = line;
+        //while (std::getline(file, line, ' '))
+        while (std::getline(file, r_arr[i++], ' '));
+           //r_arr[i++] = line;
     }
     size_t RecordSet::size() const {
         return r_numRecSet;
     }
     std::string RecordSet::getRecord(size_t myIndex) {
-        return myIndex > r_numRecSet || myIndex < 0 ? " " : r_arr[myIndex];
+        if (myIndex < size()) {
+            return r_arr[myIndex];
+        }
+        else {
+            return "";
+        }
     }
     RecordSet& RecordSet::operator=(const RecordSet& copyOp) {
         unsigned int i;

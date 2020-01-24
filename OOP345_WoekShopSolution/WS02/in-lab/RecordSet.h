@@ -17,6 +17,7 @@ namespace sdds {
     public:
         RecordSet();
         RecordSet(const RecordSet& copyCon);
+        RecordSet(RecordSet&& );
         RecordSet(const char* fileName);
         size_t size()const;
         std::string getRecord(size_t);
