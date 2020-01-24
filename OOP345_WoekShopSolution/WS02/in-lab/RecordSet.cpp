@@ -12,25 +12,23 @@
 #include "RecordSet.h"
 using namespace std;
 namespace sdds {
-    unsigned int RecordSet::r_numRecSet = 0;
-    RecordSet::RecordSet() {
-        r_arr = nullptr;
+    //unsigned int RecordSet::r_numRecSet = 0;
+    RecordSet::RecordSet() : r_arr{ nullptr } {
+        r_numRecSet = 0;
     }
-    RecordSet::RecordSet(const RecordSet& copyCon):r_arr(nullptr) {
+    RecordSet::RecordSet(const RecordSet& copyCon) : r_arr{ nullptr } {
         *this = copyCon;
     }
-    RecordSet::RecordSet(RecordSet&& moveCon) {
-        *this = moveCon;
-        delete[] moveCon.r_arr;
-        moveCon.r_numRecSet = 0;
+    RecordSet::RecordSet(RecordSet&& moveCon) : r_arr{ nullptr } {
+        *this = move(moveCon);
     }
-    RecordSet::RecordSet(const char* fileName) {
+    RecordSet::RecordSet(const char* fileName) : r_arr{ nullptr } {
         string buffer = {};
         ifstream file;
         file.open(fileName);
         if (file.is_open())
         {
-            while (getline(file, buffer, ' ' ))
+            while (getline(file, buffer, ' '))
                 ++r_numRecSet;
         }
 
@@ -42,20 +40,21 @@ namespace sdds {
         unsigned int i = 0;
         string line = {};
 
-        //while (std::getline(file, line, ' '))
-        while (std::getline(file, r_arr[i++], ' '));
-           //r_arr[i++] = line;
+        while (std::getline(file, line, ' '))
+            r_arr[i++] = line;
     }
     size_t RecordSet::size() const {
         return r_numRecSet;
     }
     std::string RecordSet::getRecord(size_t myIndex) {
+        string temp;
         if (myIndex < size()) {
-            return r_arr[myIndex];
+            temp = r_arr[myIndex];
         }
         else {
-            return "";
+            temp = "";
         }
+        return temp;
     }
     RecordSet& RecordSet::operator=(const RecordSet& copyOp) {
         unsigned int i;
@@ -66,6 +65,17 @@ namespace sdds {
             for (i = 0; i < r_numRecSet; i++) {
                 r_arr[i] = copyOp.r_arr[i];
             }
+        }
+        return *this;
+    }
+    RecordSet& RecordSet::operator=(RecordSet&& moveOp) {
+        if (this != &moveOp) {
+            delete[] r_arr;
+            r_arr = moveOp.r_arr;
+            //delete[] moveOp.r_arr;
+            moveOp.r_arr = nullptr;
+            r_numRecSet = moveOp.r_numRecSet;
+            moveOp.r_numRecSet = 0;
         }
         return *this;
     }

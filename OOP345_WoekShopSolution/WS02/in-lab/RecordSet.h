@@ -12,17 +12,18 @@
 #include <string>
 namespace sdds {
     class RecordSet {
-        static unsigned int r_numRecSet;
+        unsigned int r_numRecSet{ 0 };
         std::string* r_arr;
     public:
         RecordSet();
         RecordSet(const RecordSet& copyCon);
-        RecordSet(RecordSet&& );
+        RecordSet(RecordSet&&);
         RecordSet(const char* fileName);
         size_t size()const;
         std::string getRecord(size_t);
         RecordSet& operator=(const RecordSet& copyOp);
+        RecordSet& operator=(RecordSet&& moveOp);
         virtual ~RecordSet();
     };
 }
-#endif // End of Safegard
+#endif // 
