@@ -49,13 +49,13 @@ int main(int argc, char* argv[])
 		}
 
 		std::cout << "Individual Index Entries\n"
-		          << "--------------------------\n";
+			<< "--------------------------\n";
 		for (size_t i = 0; i < products.size(); ++i)
 			std::cout << products[i];
 		std::cout << std::endl;
 
 		std::cout << "Collated Index Entries\n"
-		          << "--------------------------\n";
+			<< "--------------------------\n";
 		std::cout << std::fixed << std::setprecision(2);
 		std::cout << "      Tools: " << products.accumulate("Tools") << std::endl;
 		std::cout << "  Groceries: " << products.accumulate("Groceries") << std::endl;
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 		}
 
 		std::cout << "Detail Ticket Sales\n"
-		          << "--------------------------\n";
+			<< "--------------------------\n";
 		for (size_t i = 0; i < ticketSales.size(); ++i)
 			std::cout << ticketSales[i];
 		std::cout << std::endl;
@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 		double seniorFare = 2.5;
 
 		std::cout << "Summary of Ticket Sales\n"
-		          << "--------------------------\n";
+			<< "--------------------------\n";
 		std::cout << std::fixed << std::setprecision(2) << std::right;
 		std::cout << "Student Tickets  = " << std::setw(7) << ticketSales.accumulate("Student") * studentFare << std::endl;
 		std::cout << "  Adult Tickets  = " << std::setw(7) << ticketSales.accumulate("Adult") * adultFare << std::endl;

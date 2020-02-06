@@ -27,13 +27,13 @@ namespace sdds {
         const V& value() const {
             return p_Val;
         }
-        void display(std::ostream& os) const {
+        virtual void display(std::ostream& os = std::cout) const {
             os << p_Key << " : " << p_Val << std::endl;
         }
     };
     template<typename K, typename V>
     std::ostream& operator<<(std::ostream& os, const Pair<K, V>& pair) {
-        os << pair.key() << " : " << pair.value() << std::endl;
+        pair.display(os);
         return os;
     }
 }
