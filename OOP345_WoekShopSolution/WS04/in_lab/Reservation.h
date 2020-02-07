@@ -20,6 +20,7 @@ namespace sdds {
     public:
         Reservation();
         Reservation(const std::string& res);
+        std::string findEras(std::string& res, const char delimeter);
         void setEmpty();
         friend std::ostream& operator<<(std::ostream& os, const Reservation& resv);
         virtual ~Reservation();

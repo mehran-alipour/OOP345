@@ -28,34 +28,27 @@ namespace sdds {
                 if (i != -1)
                     temp.erase(i, 1);
             }
-
-            i = (int)temp.find(':');
-            r_reservationId = temp.substr(0, i);
-
-            temp.erase(0, i+1);
-            i = (int)temp.find(',');
-            r_resName = temp.substr(0, i);
-
-            temp.erase(0, i+1);
-            i = (int)temp.find(',');
-            r_email = temp.substr(0, i);
-
-            temp.erase(0, i+1);
-            i = (int)temp.find(',');
-            r_numPeople = stoi(temp.substr(0, i));
-
-
-            temp.erase(0, i+1);
-            i = (int)temp.find(',');
-            r_day = stoi(temp.substr(0, i));
-
-            temp.erase(0, i+1);
-            r_hour = stoi(temp.substr(0, temp.size()));
+            r_reservationId = findEras(temp,':');
+            r_resName = findEras(temp, ',');
+            r_email = findEras(temp, ',');
+            r_numPeople = stoi(findEras(temp, ','));
+            r_day = stoi(findEras(temp, ','));
+            r_hour = stoi(findEras(temp, '/n'));
 
         }
         else {
             setEmpty();
         }
+    }
+    string Reservation::findEras(string& res, const char delimeter) {
+        std::string temp;
+        int i = 0;
+        i = (int)res.find(delimeter);
+        temp = res.substr(0, i);
+        if (i != -1) {
+            res.erase(0, i + 1);
+        }
+        return temp;
     }
     void Reservation::setEmpty() {
         r_reservationId = "";
