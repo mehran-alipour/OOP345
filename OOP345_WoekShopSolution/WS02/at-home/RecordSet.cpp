@@ -72,7 +72,6 @@ namespace sdds {
         if (this != &moveOp) {
             delete[] r_arr;
             r_arr = moveOp.r_arr;
-            //delete[] moveOp.r_arr;
             moveOp.r_arr = nullptr;
             r_numRecSet = moveOp.r_numRecSet;
             moveOp.r_numRecSet = 0;
