@@ -17,7 +17,8 @@ namespace sdds {
         setConfi(confcop);
     }
     ConfirmationSender::ConfirmationSender(ConfirmationSender&& confcop) :cs_restResv(nullptr) {
-        
+        *this = move(confcop);
+
     }
     ConfirmationSender& ConfirmationSender::operator=(ConfirmationSender&& confcop) {
         if (this != &confcop) {
@@ -68,28 +69,28 @@ namespace sdds {
         return *this;
     }
     ConfirmationSender& ConfirmationSender::operator-=(const Reservation& res) {
-        size_t i, index;// , j = 0;
+        size_t i, index , j = 0;
         bool checker = false;
         for (i = 0; i < cs_numbRecord; i++) {
             if (cs_restResv[i] == &res) {
                 checker = true;
                 index = i;
+                cs_restResv[i] = nullptr;
             }
         }
         if (checker) {
-            cs_restResv[index] = nullptr;
-            /*Reservation** temp = new Reservation* [cs_numbRecord - 1];
+            
+            Reservation** temp = new Reservation* [cs_numbRecord - 1];
 
             for (i = 0; i < cs_numbRecord; i++) {
-                if (cs_restResv != nullptr) {
+                if (i != index) {
                     temp[j] = cs_restResv[i];
                     j++;
                 }
             }
-
             delete[] cs_restResv;
             cs_restResv = temp;
-            cs_numbRecord -= 1;*/
+            cs_numbRecord -= 1;
 
         }
         return *this;

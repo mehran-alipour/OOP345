@@ -13,7 +13,7 @@
 
 namespace sdds {
     class Restaurant {
-        Reservation* rt_reservation;
+        Reservation* rt_reservation = nullptr;
         size_t rt_numOfrsvn; // nunber of the mmemebers in the array
     public:
         Restaurant();

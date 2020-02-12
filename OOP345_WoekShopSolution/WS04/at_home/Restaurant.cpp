@@ -23,10 +23,11 @@ namespace sdds {
         *this = move(resCop);
 
     }
-    Restaurant::Restaurant(Reservation* reservations[], size_t cnt) : rt_reservation(nullptr) {
+    Restaurant::Restaurant(Reservation* reservations[], size_t cnt) {
         if (cnt > 0) {
             delete[] rt_reservation;
             rt_reservation = new Reservation[cnt];
+
             for (size_t i = 0; i < cnt; i++) {
                 rt_reservation[i] = *reservations[i];
             }
