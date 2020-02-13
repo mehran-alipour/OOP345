@@ -17,8 +17,8 @@ namespace sdds {
     public:
         ConfirmationSender();
         ConfirmationSender(const ConfirmationSender& confcop);
-        ConfirmationSender(ConfirmationSender&& confcop);
-        ConfirmationSender& operator=(ConfirmationSender&& res);
+        ConfirmationSender(ConfirmationSender&& confcop) noexcept;
+        ConfirmationSender& operator=(ConfirmationSender&& res) noexcept;
         void setEmpty();
         void setConfi(const ConfirmationSender& confcop);
         ConfirmationSender& operator+=(const Reservation& res);
