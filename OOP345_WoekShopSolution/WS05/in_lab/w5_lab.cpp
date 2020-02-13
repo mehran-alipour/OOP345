@@ -65,10 +65,10 @@ int main(int argc, char** argv)
 	double gbpToCadRate = 1.5;
 	auto book = [=](Book& books) {
 		if (books.country() == "US") {
-			books.price() += usdToCadRate;
+			books.price() *= usdToCadRate;
 		}
-		else if (books.country() == "UK" && (books.year() >= 1990 || books.year() <= 1999)) {
-			books.price() += gbpToCadRate;
+		else if (books.country() == "UK" && books.year() >= 1990 && books.year() <= 1999) {
+			books.price() *= gbpToCadRate;
 		}
 	};
 	// TODO: create a lambda expression that fixes the price of a book accoding to the rules
