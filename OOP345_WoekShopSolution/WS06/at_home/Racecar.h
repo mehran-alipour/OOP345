@@ -18,6 +18,7 @@ namespace sdds {
         Racecar(std::istream& in);
         void display(std::ostream& out) const;
         double topSpeed() const;
+        ~Racecar() {};
     };
 }
 #endif // !SDDS_RACECAR_H__

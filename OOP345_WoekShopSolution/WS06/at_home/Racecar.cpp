@@ -17,7 +17,7 @@ namespace sdds {
         string myCar;
         getline(in, myCar);
         if (myCar != "") {
-            m_booster = stod(findEras(myCar, ','));
+            m_booster = stod(findEras(myCar, '\n'));
         }
         else {
             m_booster = 0;
@@ -27,7 +27,10 @@ namespace sdds {
         Car::display(out);
         out << "*";
     }
+    void setBooster(double boos) {
+
+    }
     double Racecar::topSpeed() const {
-        return Car::topSpeed() * (m_booster + 1);
+        return  Car::topSpeed() * (m_booster + 1);
     }
 }

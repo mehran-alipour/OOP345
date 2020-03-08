@@ -7,6 +7,7 @@
 // I confirm that the content of this file is created by me,
 //   with the exception of the parts provided to me by my professor.
 #include <iostream>
+#include <stdexcept> 
 #include <string>
 #include "Car.h"
 #include "Utilities.h"
@@ -25,37 +26,48 @@ namespace sdds {
     Car::Car(istream& is) {
         string myCar;
         string condition;
-        getline(is, myCar);
-        if (myCar != "") {
-            c_maker = findEras(myCar, ',');
-            condition = findEras(myCar, ',');
-            if (condition == "n") {
-                c_condition = "new";
-            }
-            else if (condition == "u") {
-                c_condition = "used";
-            }
-            else if (condition == "b") {
-                c_condition = "broken";
-            }
-            else {
-                throw "Invalid record!";
-            }
-            try {
-                c_speed = stod(findEras(myCar, ','));
-            }
-            catch (string& c) {
-                cout << c << endl;
-                //setEmpty;
-            }
-            catch (...) {
-                cout << "Invalid record!" << endl;
-                //setEmpty;
-            }
+        getline(is, myCar, ',');
+        c_maker = trim(myCar);
+        is.ignore(1);
+        getline(is, condition, ',');
+        condition = trim(condition);
+        if (condition == "n" || condition == "") {
+            c_condition = "new";
+        }
+        else if (condition == "u") {
+            c_condition = "used";
+        }
+        else if (condition == "b") {
+            c_condition = "broken";
         }
         else {
-            setEmpty();
+            throw "invalid_argument";// throw const char*
         }
+        is.ignore(1);
+        getline(is, myCar, ',');
+        c_speed = stod(trim(myCar));
+        is.ignore(1);
+        //getline(is, myCar);
+        //if (myCar != "") {
+        //    c_maker = findEras(myCar, ',');
+        //    condition = findEras(myCar, ',');
+        //    if (condition == "n" || condition == "") {
+        //        c_condition = "new";
+        //    }
+        //    else if (condition == "u") {
+        //        c_condition = "used";
+        //    }
+        //    else if (condition == "b") {
+        //        c_condition = "broken";
+        //    }
+        //    else {
+        //        throw "invalid_argument";// throw const char*
+        //    }
+        //    c_speed = stod(findEras(myCar, ',')); // if something wrong throw  invalid_argument
+        //}
+        //else{
+        //    setEmpty();
+        //}
     }
     Car::~Car() {
 
@@ -78,7 +90,7 @@ namespace sdds {
         out.width(6);
         out.setf(ios::fixed);
         out.precision(2);
-        out << c_speed << " |";
+        out << topSpeed() << " |";
         out.unsetf(ios::fixed);
 
     }
