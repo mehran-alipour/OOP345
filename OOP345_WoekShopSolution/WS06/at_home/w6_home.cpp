@@ -35,8 +35,9 @@ void loadData(const char* filename, sdds::Autoshop& as)
 		catch (const char* invalid) {
 			std::cout << invalid << std::endl;
 		}
-		catch (std::invalid_argument) {
-			std::cout << "invalid_argument" << std::endl;
+		//catch (std::logic_error)
+		catch (...) {
+			std::cout << "Invalid record!" << std::endl;
 		}
 		
 	}

@@ -13,7 +13,7 @@
 using namespace std;
 
 namespace sdds {
-    Racecar::Racecar(std::istream& in):Car(in) {
+    Racecar::Racecar(std::istream& in) :Car(in) {
         string myCar;
         getline(in, myCar);
         if (myCar != "") {
