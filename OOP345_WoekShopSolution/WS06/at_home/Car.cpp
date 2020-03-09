@@ -24,12 +24,9 @@ namespace sdds {
         *this = move(moveCar);
     }
     Car::Car(istream& is) {
-        string myCar;
         string condition;
-        getline(is, myCar, ',');
-        c_maker = trim(myCar);
-        getline(is, condition, ',');
-        condition = trim(condition);
+        c_maker = find(is,',');
+        condition = find(is, ',');
         if (condition == "n" || condition == "") {
             c_condition = "new";
         }
@@ -43,9 +40,7 @@ namespace sdds {
             throw "Invalid record!";// throw const char*
             is.ignore(1000, '\n');
         }
-        getline(is, myCar, ',');
-        c_speed = stod(trim(myCar));
-
+        c_speed = stod(find(is, ','));
     }
     Car::~Car() {
 

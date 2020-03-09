@@ -13,19 +13,9 @@
 #include "Racecar.h"
 using namespace std;
 namespace sdds {
-    string findEras(string& carString, const char delimeter) {
+    string find(istream& is, const char delimeter) {
         string temp;
-        int i = 0;
-        i = (int)carString.find(delimeter);
-        if (i != -1) {
-            temp = carString.substr(0, i);
-            carString.erase(0, i + 1);
-        }
-        else {
-            i = (int)carString.find('\n');
-            temp = carString.substr(0, i);
-            carString.erase(0, i + 1);
-        }
+        getline(is, temp, delimeter);
         return trim(temp);
     }
     void ltrim(string& s) {

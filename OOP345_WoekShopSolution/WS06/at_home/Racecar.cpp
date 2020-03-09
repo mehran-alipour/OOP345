@@ -15,9 +15,9 @@ using namespace std;
 namespace sdds {
     Racecar::Racecar(std::istream& in) :Car(in) {
         string myCar;
-        getline(in, myCar);
+        myCar = find(in, ',');
         if (myCar != "") {
-            m_booster = stod(findEras(myCar, '\n'));
+            m_booster = stod(myCar);
         }
         else {
             m_booster = 0;

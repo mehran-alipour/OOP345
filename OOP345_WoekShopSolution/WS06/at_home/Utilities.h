@@ -11,7 +11,7 @@
 #include "Vehicle.h"
 
 namespace sdds {
-    std::string findEras(std::string& carString, const char delimeter);
+    std::string find(std::istream& is, const char delimeter);
     void ltrim(std::string& s);
     void rtrim(std::string& s);
     std::string trim(std::string& s);
