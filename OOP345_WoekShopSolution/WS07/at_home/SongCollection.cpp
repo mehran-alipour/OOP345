@@ -11,6 +11,7 @@
 #include <exception>
 #include <fstream>
 #include <algorithm>
+#include <numeric>
 #include "SongCollection.h"
 using namespace std;
 namespace sdds {
@@ -55,6 +56,22 @@ namespace sdds {
     }
     void SongCollection::display(std::ostream& out) const {
         for_each(sc_songColle.begin(), sc_songColle.end(), [&](const Song i) { out << i; });
+        int hr, min, sec, totalSec;
+        totalSec = sum();
+        sec = totalSec % 60;
+        min = (totalSec - sec) % 60;
+        hr = (totalSec - sec - (min * 60)) % 360;
+        cout << "----------------------------------------------------------------------------------------" << endl;
+        cout << "|" << setw(85) << "Total Listening Time: " << hr << ":" << setw(2) << setfill('0') << min << ":" << sec << " |" << endl;
+        cout << "----------------------------------------------------------------------------------------" << endl;
+    }
+    int SongCollection::sum() const {
+        int n = this->sc_songColle.size(), i = 0;
+        int* a = new int[n];
+        copy(this->sc_songColle.begin(), this->sc_songColle.end(), a[i++]);
+        n = accumulate(a, &a[n], (int)0);
+        delete[] a;
+        return n;
     }
 
     string SongCollection::find(string& rec, int len) {
