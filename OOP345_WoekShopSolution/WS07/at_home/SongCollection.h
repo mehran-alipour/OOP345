@@ -27,7 +27,7 @@ namespace sdds {
         SongCollection(const char* fileName);
         Song SetSong(std::string rec);
         void display(std::ostream& out = std::cout) const;
-
+        int sum() const;
         // Utility
         std::string find(std::string& rec, int len);
         void ltrim(std::string& s);
