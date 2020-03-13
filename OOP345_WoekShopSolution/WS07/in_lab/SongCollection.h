@@ -12,14 +12,15 @@
 #include <string>
 #include <fstream> 
 #include <vector>
+#include <list>
 namespace sdds {
     struct Song {
-        std::string s_artist = "";
-        std::string s_title = "";
-        std::string s_album = "";
-        int         s_year = 0;
-        int         s_songLen = 0;
-        double      s_price= 0;
+        std::string m_artist = "";
+        std::string m_title = "";
+        std::string m_album = "";
+        int         m_year = 0;
+        int         m_songLen = 0;
+        double      m_price= 0;
     };
     class SongCollection {
         std::vector<Song> sc_songColle;
@@ -29,6 +30,9 @@ namespace sdds {
         void display(std::ostream& out = std::cout) const;
         int sum() const;
         void sort(const char* title);
+        void cleanAlbum();
+        bool inCollection(const char* artist);
+        std::list<Song> getSongsForArtist(const char* artist) const;
         // Utility
         std::string find(std::string& rec, int len);
         void ltrim(std::string& s);

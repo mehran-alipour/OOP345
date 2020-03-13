@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <list>
 #include "SongCollection.h"
 using namespace std;
 namespace sdds {
@@ -42,17 +43,17 @@ namespace sdds {
     }
     Song SongCollection::SetSong(std::string rec) {
         Song mySong;
-        mySong.s_title = find(rec, 25);
-        mySong.s_artist = find(rec, 25);
-        mySong.s_album = find(rec, 25);
+        mySong.m_title = find(rec, 25);
+        mySong.m_artist = find(rec, 25);
+        mySong.m_album = find(rec, 25);
         try {
-            mySong.s_year = stoi(find(rec, 5));
+            mySong.m_year = stoi(find(rec, 5));
         }
         catch (...) {
-            mySong.s_year = 0;
+            mySong.m_year = 0;
         }
-        mySong.s_songLen = stoi(find(rec, 5));
-        mySong.s_price = stod(find(rec, 5));
+        mySong.m_songLen = stoi(find(rec, 5));
+        mySong.m_price = stod(find(rec, 5));
         return mySong;
     }
     void SongCollection::display(std::ostream& out) const {
@@ -69,28 +70,65 @@ namespace sdds {
     int SongCollection::sum() const {
         int i = 0;
         int* a = new int[this->sc_songColle.size()];
-        i = count_if(this->sc_songColle.begin(), this->sc_songColle.end(), [&](Song mine) {a[i++] = mine.s_songLen; return true; });
+        i = count_if(this->sc_songColle.begin(), this->sc_songColle.end(), [&](Song mine) {a[i++] = mine.m_songLen; return true; });
         i = accumulate(a, &a[i], 0);
         delete[] a;
         return i;
     }
     void  SongCollection::sort(const char* title) {
         if (!strcmp(title, "songLen")) {
-            std::sort(sc_songColle.begin(), sc_songColle.end(), [&](const Song& A, const Song& B) { return A.s_songLen < B.s_songLen; });
+            std::sort(sc_songColle.begin(), sc_songColle.end(), 
+                [&](const Song& A, const Song& B) { 
+                    return A.m_songLen < B.m_songLen; 
+                });
         }
         else if (!strcmp(title, "album")) {
             std::sort(sc_songColle.begin(), sc_songColle.end(),
                 [&](const Song& A, const Song& B) {
-                    return (A.s_album < B.s_album);
+                    return (A.m_album < B.m_album);
                 });
         }
         else if (!strcmp(title,"title")) {
             std::sort(sc_songColle.begin(), sc_songColle.end(),
                 [&](const Song& A, const Song& B) {
-                    return (A.s_title < B.s_title);
+                    return (A.m_title < B.m_title);
                 });
         }
-        //
+        else {
+            cout << "sort only organazie based on album, songlen or title" << endl;
+        }
+    }
+    void SongCollection::cleanAlbum() {
+        int n = sc_songColle.size();
+        vector<Song> c(n);
+        std::transform(this->sc_songColle.begin(), this->sc_songColle.end(), c.begin(),
+            [&](Song& A) { 
+                if (A.m_album == "[None]") {
+                    A.m_album = "";
+                }
+                return A;
+            });
+    }
+    bool SongCollection::inCollection(const char* artist) {
+        string art = artist;
+        int n = 0;
+        n = std::count_if(sc_songColle.begin(), sc_songColle.end(), 
+            [&](Song& A) {
+                return !A.m_artist.compare(art);
+            });
+        return n > 0;
+    }
+    list<Song> SongCollection::getSongsForArtist(const char* artist) const {
+        int n = std::count_if(sc_songColle.begin(), sc_songColle.end(),
+            [=](const Song A) {
+                return !A.m_artist.compare(artist);
+            });
+        list<Song> mySong(n);
+        std::copy_if(sc_songColle.begin(), sc_songColle.end(), mySong.begin(),[=](const Song A) {
+                 return !A.m_artist.compare(artist);
+            });
+
+        return mySong;
     }
     string SongCollection::find(string& rec, int len) {
         string temp;
@@ -116,21 +154,21 @@ namespace sdds {
     ostream& operator<<(ostream& out, const Song& theSong) {
         out.unsetf(ios::right);
         out.setf(ios::left); 
-        out << "| " << setw(20) << theSong.s_title << " | ";
-        out << setw(15) << theSong.s_artist << " | ";
-        out << setw(20) << theSong.s_album << " | ";
+        out << "| " << setw(20) << theSong.m_title << " | ";
+        out << setw(15) << theSong.m_artist << " | ";
+        out << setw(20) << theSong.m_album << " | ";
         out.unsetf(ios::left);
         out.setf(ios::right);
-        if (theSong.s_year == 0) {
+        if (theSong.m_year == 0) {
             out << setw(6) << " " << " | ";
         }
         else {
-            out << setw(6) << theSong.s_year << " | ";
+            out << setw(6) << theSong.m_year << " | ";
         }
-        int min = (int)(theSong.s_songLen / 60);
-        int sec = (theSong.s_songLen - (min * 60));
+        int min = (int)(theSong.m_songLen / 60);
+        int sec = (theSong.m_songLen - (min * 60));
         out << min << ":" << setw(2) << setfill('0') << sec << " | " << setfill(' ');
-        out << setw(4) << theSong.s_price << " |";
+        out << setw(4) << theSong.m_price << " |";
         out << endl;
         return out;
     }
