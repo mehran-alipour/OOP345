@@ -19,7 +19,7 @@ namespace sdds {
         std::string s_album = "";
         int         s_year = 0;
         int         s_songLen = 0;
-        double      s_price= 0;
+        double      s_price = 0;
     };
     class SongCollection {
         std::vector<Song> sc_songColle;
@@ -28,6 +28,7 @@ namespace sdds {
         Song SetSong(std::string rec);
         void display(std::ostream& out = std::cout) const;
         int sum() const;
+        void sort(const char* title);
         // Utility
         std::string find(std::string& rec, int len);
         void ltrim(std::string& s);

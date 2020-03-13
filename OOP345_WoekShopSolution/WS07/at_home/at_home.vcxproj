@@ -138,6 +138,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="sample_output.txt" />
+    <Text Include="songs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SongCollection.cpp" />
+    <ClCompile Include="w7_home.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SongCollection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
