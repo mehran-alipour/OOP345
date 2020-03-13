@@ -30,5 +30,15 @@ int main(int argc, char** argv)
 
 	printHeader("The original collection");
 	theCollection.display(std::cout);
-	printbar();	
+	printbar();
+
+	printHeader("Sort BY songLen");
+	theCollection.sort("songLen");
+	theCollection.display(std::cout);
+	printbar();
+
+	printHeader("Sort BY title");
+	theCollection.sort("album");
+	theCollection.display(std::cout);
+	printbar();
 }
