@@ -68,29 +68,25 @@ namespace sdds {
         cout << "|" << setw(78) << "Total Listening Time: " << hr << ":" << setw(2) << setfill('0') << min << ":" << sec << " |" << endl;
     }
     int SongCollection::sum() const {
-        int i = 0;
-        int* a = new int[this->sc_songColle.size()];
-        i = count_if(this->sc_songColle.begin(), this->sc_songColle.end(), [&](Song mine) {a[i++] = mine.m_songLen; return true; });
-        i = accumulate(a, &a[i], 0);
-        delete[] a;
-        return i;
+        return accumulate(sc_songColle.begin(), sc_songColle.end(), 0,
+            [](int sum, const Song& curr) { return sum + curr.m_songLen; });
     }
     void  SongCollection::sort(const char* title) {
         if (!strcmp(title, "length")) {
             std::sort(sc_songColle.begin(), sc_songColle.end(),
-                [&](const Song& A, const Song& B) {
+                [](const Song& A, const Song& B) {
                     return A.m_songLen < B.m_songLen;
                 });
         }
         else if (!strcmp(title, "album")) {
             std::sort(sc_songColle.begin(), sc_songColle.end(),
-                [&](const Song& A, const Song& B) {
+                [](const Song& A, const Song& B) {
                     return (A.m_album < B.m_album);
                 });
         }
         else if (!strcmp(title, "title")) {
             std::sort(sc_songColle.begin(), sc_songColle.end(),
-                [&](const Song& A, const Song& B) {
+                [](const Song& A, const Song& B) {
                     return (A.m_title < B.m_title);
                 });
         }
@@ -99,10 +95,8 @@ namespace sdds {
         }
     }
     void SongCollection::cleanAlbum() {
-        int n = sc_songColle.size();
-        vector<Song> c(n);
-        std::transform(this->sc_songColle.begin(), this->sc_songColle.end(), c.begin(),
-            [&](Song& A) {
+        std::for_each(this->sc_songColle.begin(), this->sc_songColle.end(),
+            [](Song& A) {
                 if (A.m_album == "[None]") {
                     A.m_album = "";
                 }
@@ -113,7 +107,7 @@ namespace sdds {
         string art = artist;
         int n = 0;
         n = std::count_if(sc_songColle.begin(), sc_songColle.end(),
-            [&](Song& A) {
+            [=](Song A) {
                 return !A.m_artist.compare(art);
             });
         return n > 0;
@@ -130,6 +124,7 @@ namespace sdds {
 
         return mySong;
     }
+
     string SongCollection::find(string& rec, int len) {
         string temp;
         temp = rec.substr(0, len - 1);
