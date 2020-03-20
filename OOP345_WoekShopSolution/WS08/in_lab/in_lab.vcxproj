@@ -138,6 +138,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="BadPrices.dat" />
+    <None Include="Descriptions.dat" />
+    <None Include="Prices.dat" />
+    <None Include="sample_output" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Element.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="w8_lab.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

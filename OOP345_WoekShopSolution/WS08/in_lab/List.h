@@ -1,3 +1,12 @@
+// List.h
+// Name: Mehran Alipour
+// Seneca Student ID: 126778182
+// Seneca email: malipour7
+// Date of completion: Mar 20, 2020
+//
+// I confirm that the content of this file is created by me,
+//   with the exception of the parts provided to me by my professor.
+
 #ifndef SDDS_LIST_H
 #define SDDS_LIST_H
 // Workshop 8 - Smart Pointers
@@ -39,6 +48,9 @@ namespace sdds {
             for (auto& e : list)
                 e.display(os);
         }
+		void operator+=(const T* add) {
+			list.push_back(*add);
+		}
 	};
 
     template<typename T>
