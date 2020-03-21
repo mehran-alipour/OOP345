@@ -1,3 +1,12 @@
+// List.h
+// Name: Mehran Alipour
+// Seneca Student ID: 126778182
+// Seneca email: malipour7
+// Date of completion: Mar 20, 2020
+//
+// I confirm that the content of this file is created by me,
+//   with the exception of the parts provided to me by my professor.
+
 #ifndef SDDS_LIST_H
 #define SDDS_LIST_H
 // Workshop 8 - Smart Pointers
@@ -33,9 +42,15 @@ namespace sdds {
 
 		// TODO: Overload the += operator with a smart pointer
 		//       as a second operand.
+		void operator+=(std::unique_ptr<T>& add) {
+			list.push_back(*add);
+		}
 
 		// TODO: Overload the += operator with a raw pointer
 		//       as a second operand.
+		void operator+=(const T* add) {
+			list.push_back(*add);
+		}
 
 		void display(std::ostream& os) const {
             os << std::fixed << std::setprecision(2);

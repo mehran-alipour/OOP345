@@ -49,7 +49,12 @@ namespace sdds {
                 e.display(os);
         }
 		void operator+=(const T* add) {
-			list.push_back(*add);
+			if (add != nullptr) {
+				list.push_back(*add);
+			}
+			else {
+				std::cout << "****** errrr" << std::endl;
+			}
 		}
 	};
 
