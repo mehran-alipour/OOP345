@@ -31,7 +31,6 @@ namespace sdds {
                     priceList += p;
                     delete p;	// deallocate p
                     p = nullptr;
-
                 }
             }
         }
