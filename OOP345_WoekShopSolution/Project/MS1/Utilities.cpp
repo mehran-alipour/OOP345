@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Utilities.h"
 
-namespace sdds {
+// namespace sdds {
     char Utilities::m_delimiter = '\0';
     Utilities::Utilities() {
         m_widthField = 1;
@@ -48,4 +48,4 @@ namespace sdds {
     char Utilities::getDelimiter() {
         return m_delimiter;
     }
-}
+//}

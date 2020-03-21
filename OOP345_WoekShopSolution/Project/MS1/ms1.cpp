@@ -17,7 +17,6 @@
 #include "Utilities.h"
 
 using namespace std;
-using namespace sdds;
 
 static bool loadStations(const char*, vector<Station>&);
 
