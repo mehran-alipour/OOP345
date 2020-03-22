@@ -21,6 +21,12 @@
     <Text Include="CustomerOrders.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Stations1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Stations2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ms2.cpp">

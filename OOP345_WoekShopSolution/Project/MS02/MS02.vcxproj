@@ -140,6 +140,8 @@
   <ItemGroup>
     <Text Include="CustomerOrders.txt" />
     <Text Include="ms2_output.txt" />
+    <Text Include="Stations1.txt" />
+    <Text Include="Stations2.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CustomerOrder.cpp" />
