@@ -27,8 +27,14 @@ namespace sdds {
             for (size_t j = 0; j < price.size(); j++) {
                 if (desc[i].code == price[j].code) {
                     Product* p = new Product(desc[i].desc, price[j].price);
-                    p->validate();
-                    priceList += p;
+                    try {
+                        p->validate();
+                        priceList += p;
+                    }
+                    catch (const string& err){
+                        //delete p;
+                        throw err;
+                    }
                     delete p;	// deallocate p
                     p = nullptr;
                 }
