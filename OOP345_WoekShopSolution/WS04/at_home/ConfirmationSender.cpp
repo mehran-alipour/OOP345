@@ -63,7 +63,6 @@ namespace sdds {
             temp[cs_numbRecord - 1] = (Reservation*)&res;
             delete[] cs_restResv;
             cs_restResv = temp;
-
         }
 
         return *this;
