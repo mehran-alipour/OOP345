@@ -27,7 +27,6 @@ namespace sdds {
         for (size_t i = 0; i < desc.size(); i++) {
             std::cout << i;
             for (size_t j = 0; j < price.size(); j++) {
-                cout << "  *****  " << j << std::endl;
                 if (desc[i].code == price[j].code) {
                     Product* p = new Product(desc[i].desc, price[j].price);
                     try {
