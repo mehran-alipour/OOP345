@@ -6,13 +6,12 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
-//#ifndef SDDS_STATION_H
-//#define SDDS_STATION_H
+
 #ifndef STATION_H
 #define STATION_H
 #include <iostream>
 #include <string>
-//namespace sdds {
+
 class Station {
     size_t m_id{ 0 };
     std::string m_itemName{ "" };
@@ -29,5 +28,5 @@ public:
     void updateQuantity();
     void display(std::ostream& os, bool full) const;
 };
-//}
+
 #endif // SDDS_UTILITIES_H

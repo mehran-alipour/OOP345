@@ -138,6 +138,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="AssemblyLine.txt" />
+    <Text Include="CustomerOrders.txt" />
+    <Text Include="ms3_output.txt" />
+    <Text Include="Stations1.txt" />
+    <Text Include="Stations2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CustomerOrder.cpp" />
+    <ClCompile Include="ms3.cpp" />
+    <ClCompile Include="Station.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Workstation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CustomerOrder.h" />
+    <ClInclude Include="Station.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Workstation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
