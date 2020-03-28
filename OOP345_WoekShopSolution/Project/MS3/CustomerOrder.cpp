@@ -85,7 +85,7 @@ bool CustomerOrder::isOrderFilled() const {
 }
 bool CustomerOrder::isItemFilled(const string& itemName) const {
     size_t i = 0;
-    bool check = false;
+    bool check = true;
     for (i = 0; i < m_cntItem; i++) {
         if (m_lstItem[i]->m_itemName.compare(itemName) == 0) {
             check = m_lstItem[i]->m_isFilled;

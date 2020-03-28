@@ -6,3 +6,52 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
+
+#include <iostream>
+#include <string>
+#include "Workstation.h"
+using namespace std;
+
+Workstation::Workstation(const string& conWorkS) :Station(conWorkS) {
+    m_pNextStation = nullptr;
+}
+void Workstation::runProcess(std::ostream& os) {
+    if (!m_orders.empty())
+        m_orders.front().fillItem(*this, os);
+}
+bool Workstation::moveOrder() {
+    bool checker = false;
+    if (!m_orders.empty() && m_orders.front().isItemFilled((*this).getItemName())) {
+        *m_pNextStation += move(m_orders.front());
+        m_orders.pop_front();
+        checker = true;
+    }
+    return checker;
+}
+void Workstation::setNextStation(Workstation& station) {
+    m_pNextStation = &station;
+}
+const Workstation* Workstation::getNextStation() const {
+    return m_pNextStation;
+}
+bool Workstation::getIfCompleted(CustomerOrder& order) {
+    bool checker = false;
+    if (!m_orders.empty() && m_orders.front().isOrderFilled()) {
+        order = move(m_orders.front());
+        m_orders.pop_front();
+        checker = true;
+    }
+    return checker;
+}
+void Workstation::display(std::ostream&) {
+    if (m_pNextStation != nullptr) {
+        cout << this->getItemName() << " --> " << m_pNextStation->getItemName();
+    }
+    else {
+        cout << "END OF LINE" << endl;
+    }
+}
+Workstation& Workstation::operator+=(CustomerOrder&& customerOrder) {
+    m_orders.push_back(customerOrder);
+    return *this;
+}
