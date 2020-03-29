@@ -26,7 +26,7 @@ public:
     unsigned int getNextSerialNumber();
     unsigned int getQuantity() const;
     void updateQuantity();
-    void display(std::ostream& os, bool full) const;
+    virtual void display(std::ostream& os, bool full) const;
 };
 
 #endif // SDDS_UTILITIES_H

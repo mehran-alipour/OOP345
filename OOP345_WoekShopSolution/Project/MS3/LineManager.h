@@ -22,6 +22,7 @@ class LineManager {
     std::deque<CustomerOrder> ToBeFilled;
     std::deque<CustomerOrder> Completed;
     unsigned int m_cntCustomerOrder;
+    Workstation* m_first;
 public:
     LineManager(const std::string& myString, 
         std::vector<Workstation*>& workSP, 

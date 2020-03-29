@@ -14,8 +14,6 @@
 #include "Utilities.h"
 
 using namespace std;
-
-//namespace sdds {
 size_t Station::m_widthField = 1;
 size_t Station::id_generator{ 0 };
 Station::Station(const string& stationRecord) {
@@ -65,6 +63,3 @@ void Station::display(ostream& os, bool full) const {
     os.unsetf(ios::left);
     os << endl;
 }
-
-
-//}

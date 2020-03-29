@@ -28,9 +28,9 @@ public:
     void runProcess(std::ostream& os = std::cout);
     bool moveOrder();
     void setNextStation(Workstation& station);
-    const Workstation* getNextStation() const;
+    Workstation* getNextStation() const;
     bool getIfCompleted(CustomerOrder& order);
-    void display(std::ostream&);
+    void display(std::ostream&)const;
     Workstation& operator+=(CustomerOrder&&);
 };
 #endif // WORKSTATION_H

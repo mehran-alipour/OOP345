@@ -21,7 +21,7 @@ void Workstation::runProcess(std::ostream& os) {
 }
 bool Workstation::moveOrder() {
     bool checker = false;
-    if (!m_orders.empty() && m_orders.front().isItemFilled((*this).getItemName())) {
+    if (!m_orders.empty() && m_orders.front().isItemFilled((*this).getItemName())&& m_pNextStation != nullptr) {
         *m_pNextStation += move(m_orders.front());
         m_orders.pop_front();
         checker = true;
@@ -31,7 +31,7 @@ bool Workstation::moveOrder() {
 void Workstation::setNextStation(Workstation& station) {
     m_pNextStation = &station;
 }
-const Workstation* Workstation::getNextStation() const {
+Workstation* Workstation::getNextStation() const {
     return m_pNextStation;
 }
 bool Workstation::getIfCompleted(CustomerOrder& order) {
@@ -43,15 +43,16 @@ bool Workstation::getIfCompleted(CustomerOrder& order) {
     }
     return checker;
 }
-void Workstation::display(std::ostream&) {
+void Workstation::display(std::ostream&) const {
+    cout << this->getItemName();
     if (m_pNextStation != nullptr) {
-        cout << this->getItemName() << " --> " << m_pNextStation->getItemName();
+         cout << " --> " << m_pNextStation->getItemName() << endl;
     }
     else {
-        cout << "END OF LINE" << endl;
+        cout << " --> " << "END OF LINE" << endl;
     }
 }
 Workstation& Workstation::operator+=(CustomerOrder&& customerOrder) {
-    m_orders.push_back(customerOrder);
+    m_orders.push_back(move(customerOrder));
     return *this;
 }
