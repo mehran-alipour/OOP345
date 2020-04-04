@@ -12,6 +12,7 @@
 #include <queue>
 #include <vector>
 #include <algorithm>
+#include <exception>
 #include "CustomerOrder.h"
 #include "Workstation.h"
 #include "LineManager.h"
@@ -31,9 +32,8 @@ LineManager::LineManager(const std::string& myString, std::vector<Workstation*>&
         if (input) {
             count++;
             getline(input, mystatoin);
-            size_t nextPose = 0;
             string str1 = "", str2 = "";
-            nextPose = mystatoin.find('|');
+            size_t nextPose = mystatoin.find('|');
             if (nextPose == std::string::npos) {
                 nextPose = mystatoin.find('\n');
                 str1 = mystatoin.substr(0, nextPose++);
@@ -44,8 +44,9 @@ LineManager::LineManager(const std::string& myString, std::vector<Workstation*>&
             }
             for (auto workstation : workSP) {
                 if (workstation->getItemName().compare(str1) == 0) {
-                    if (count == 1)
+                    if (count == 1) {
                         m_first = workstation;
+                    }
                     for (auto workstationNext : workSP) {
                         if (workstationNext->getItemName().compare(str2) == 0) {
                             workstation->setNextStation(*workstationNext);
@@ -56,11 +57,10 @@ LineManager::LineManager(const std::string& myString, std::vector<Workstation*>&
         }
     } while (!input.eof());
     input.close();
+    m_cntCustomerOrder = filcus.size();
     for (auto workstation : workSP) {
         AssemblyLine.push_back(workstation);
     }
-    //AssemblyLine = workSP;
-    m_cntCustomerOrder = count;
     for (size_t i = 0; i < filcus.size(); i++) {
         ToBeFilled.push_back(move(filcus[i]));
     }
@@ -68,29 +68,34 @@ LineManager::LineManager(const std::string& myString, std::vector<Workstation*>&
 }
 bool LineManager::run(std::ostream& os) {
     bool runComplete = false;
-    static size_t i = 0;
-    os << "Line Manager Iteration : " << ++i << endl;
+    static size_t iteration = 0;
+    CustomerOrder TempCompleted;
+    os << "Line Manager Iteration : " << ++iteration << endl;
+    
     if (ToBeFilled.size() > 0) {
-
         *m_first += std::move(ToBeFilled.front());
         ToBeFilled.pop_front();
-        
-        for (auto line : AssemblyLine) {
-            line->runProcess(os);
-        }
-        for (auto line : AssemblyLine) {
-            if (!line->moveOrder() && ToBeFilled.size() > 0) {
-                runComplete = line->getIfCompleted(ToBeFilled.front());
+    }
+    for (auto station : AssemblyLine) {
+        station->runProcess(os);
+    }
+    for (auto station : AssemblyLine) {
+        if (!station->moveOrder()) {
+            if (station->getIfCompleted(TempCompleted)) {
+                Completed.push_front(std::move(TempCompleted));
             }
         }
     }
-    else
+
+    if (!Completed.empty() && Completed.size() == m_cntCustomerOrder) {
         runComplete = true;
+    }
+
     return runComplete;
 }
 void LineManager::displayCompletedOrders(std::ostream& os) const {
-    for (auto complete : Completed) {
-        complete.display(os);
+    for (size_t i = 0; i < m_cntCustomerOrder; i++) {
+        Completed[i].display(os);
     }
 }
 void LineManager::displayStations() const {
@@ -98,11 +103,17 @@ void LineManager::displayStations() const {
         station->display(cout);
     }
 }
-void LineManager::displayStationsSorted() const{
+void LineManager::displayStationsSorted() const {
     Workstation* temp;
+    m_first->display(std::cout);
     temp = m_first;
-    do {
-        temp->display(cout);
-        temp = temp->getNextStation();
-    } while (temp != nullptr);
+    for (unsigned int i = 0; i < m_cntCustomerOrder; i++) {
+        for (auto oneWorkstation : AssemblyLine) {
+            if (temp->getNextStation() == oneWorkstation) {
+                oneWorkstation->display(std::cout);
+                temp = oneWorkstation;
+            }
+
+        }
+    }
 }

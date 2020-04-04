@@ -19,16 +19,14 @@ class Workstation :public Station {
     Workstation* m_pNextStation;
 public:
     Workstation(const std::string& conWorkS);
-
     Workstation(const Workstation& copy) = delete;
     Workstation(Workstation&& move) = delete;
     Workstation& operator=(const Workstation& copy) = delete;
     Workstation& operator=(Workstation&& move) = delete;
-
     void runProcess(std::ostream& os = std::cout);
     bool moveOrder();
     void setNextStation(Workstation& station);
-    Workstation* getNextStation() const;
+    const Workstation* getNextStation() const;
     bool getIfCompleted(CustomerOrder& order);
     void display(std::ostream&)const;
     Workstation& operator+=(CustomerOrder&&);
