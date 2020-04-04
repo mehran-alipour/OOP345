@@ -17,11 +17,7 @@ Workstation::Workstation(const string& conWorkS) :Station(conWorkS) {
 }
 void Workstation::runProcess(std::ostream& os) {
     if (!m_orders.empty()) {
-        for (size_t i = 0; i < m_orders.size(); i++) {
-            if(!m_orders[i].isItemFilled(getItemName())){
-                m_orders[i].fillItem(*this, os);
-            }
-        }  
+        m_orders.front().fillItem(*this, os);
     }
 }
 bool Workstation::moveOrder() {
