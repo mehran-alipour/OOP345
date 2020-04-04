@@ -70,7 +70,7 @@ bool LineManager::run(std::ostream& os) {
     bool runComplete = false;
     static size_t iteration = 0;
     CustomerOrder TempCompleted;
-    os << "Line Manager Iteration : " << ++iteration << endl;
+    os << "Line Manager Iteration: " << ++iteration << endl;
     
     if (ToBeFilled.size() > 0) {
         *m_first += std::move(ToBeFilled.front());
@@ -82,7 +82,7 @@ bool LineManager::run(std::ostream& os) {
     for (auto station : AssemblyLine) {
         if (!station->moveOrder()) {
             if (station->getIfCompleted(TempCompleted)) {
-                Completed.push_front(std::move(TempCompleted));
+                Completed.push_back(std::move(TempCompleted));
             }
         }
     }

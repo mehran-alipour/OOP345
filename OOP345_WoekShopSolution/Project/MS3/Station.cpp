@@ -63,3 +63,5 @@ void Station::display(ostream& os, bool full) const {
     os.unsetf(ios::left);
     os << endl;
 }
+Station::~Station() {
+}

@@ -27,6 +27,7 @@ public:
     unsigned int getQuantity() const;
     void updateQuantity();
     virtual void display(std::ostream& os, bool full) const;
+    virtual ~Station();
 };
 
 #endif // SDDS_UTILITIES_H
